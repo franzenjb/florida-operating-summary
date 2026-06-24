@@ -3,9 +3,9 @@
     "sourceTitle": "Florida Regional Operating Summary",
     "sourceUrl": "https://experience.arcgis.com/experience/f0cdcfa1d08d48da97197c51c6e3169d/",
     "extractedAt": "2026-06-23T22:15:27.523Z",
-    "tableOfContentsTargets": 44,
+    "tableOfContentsTargets": 43,
     "hamburgerPageTargets": 13,
-    "totalRows": 57,
+    "totalRows": 56,
     "note": "TOC rows are visible content target buttons. Hamburger rows are page-level navigation entries exposed by the top-right menu."
   },
   "links": [
@@ -427,21 +427,6 @@
       "webmap": "",
       "x": 534,
       "y": 582,
-      "sourceArea": "table of contents"
-    },
-    {
-      "order": 29,
-      "section": "Weather",
-      "label": "Questions Comments",
-      "url": "https://experience.arcgis.com/experience/f0cdcfa1d08d48da97197c51c6e3169d/page/Contact-Us",
-      "kind": "Experience Builder page/view",
-      "host": "experience.arcgis.com",
-      "page": "Contact-Us",
-      "view": "",
-      "appid": "",
-      "webmap": "",
-      "x": 534,
-      "y": 699,
       "sourceArea": "table of contents"
     },
     {
