@@ -55,6 +55,14 @@ let activeView = "home";
 let selectedWeatherId = "";
 const desktopSearchPlaceholder = "Search any tool, dashboard, page, view, or URL";
 const mobileSearchPlaceholder = "Search tools, pages, URLs";
+const searchExamples = [
+  "Operating Picture",
+  "Situational Awareness",
+  "Shelter",
+  "Weather",
+  "Power BI",
+  "USGS"
+];
 const editorStorageKey = "florida-ros-navigation-draft";
 
 function normalize(value) {
@@ -595,6 +603,24 @@ function resultMarkup(results) {
     .join("");
 }
 
+function emptySearchMarkup() {
+  const chips = searchExamples
+    .map((example) => `<button type="button" class="search-chip" data-example="${example}">${example}</button>`)
+    .join("");
+  return `
+    <div class="search-intro">
+      <p class="search-intro-title">Try an example</p>
+      <div class="search-examples">${chips}</div>
+      <ul class="search-intro-tips">
+        <li>Search by <strong>product</strong> &mdash; "shelter", "situational awareness"</li>
+        <li>Search by <strong>source</strong> &mdash; "Power BI", "ArcGIS", "Experience"</li>
+        <li>Search by <strong>web address</strong> &mdash; "usgs", "redcross", "noaa"</li>
+        <li>Press <kbd>Enter</kbd> to open the best match.</li>
+      </ul>
+    </div>
+  `;
+}
+
 function runSearch(query) {
   const matches = searchMatches(query);
   const best = matches[0];
@@ -602,7 +628,13 @@ function runSearch(query) {
   const results = trimmedQuery ? matches.slice(0, resultLimit(trimmedQuery)) : [];
   dom.paletteInput.dataset.bestUrl = best?.url || "";
   dom.paletteInput.dataset.bestLabel = best?.label || "";
-  dom.searchSummary.textContent = best ? `${results.length} options. Best match: ${best.label}.` : "Type to search all operating products.";
+  if (!trimmedQuery) {
+    dom.searchSummary.textContent = "Type to search, or pick an example below.";
+    dom.searchResults.innerHTML = emptySearchMarkup();
+    dom.searchPanel.hidden = false;
+    return;
+  }
+  dom.searchSummary.textContent = best ? `${results.length} options. Best match: ${best.label}.` : "No matches. Try a product name, source, or part of a URL.";
   dom.searchResults.innerHTML = resultMarkup(results);
   dom.searchPanel.hidden = false;
 }
@@ -702,6 +734,15 @@ dom.paletteInput.addEventListener("keydown", (event) => {
   openBestSearchMatch();
 });
 dom.closeSearch.addEventListener("click", closeSearch);
+dom.searchResults.addEventListener("click", (event) => {
+  const chip = event.target.closest("[data-example]");
+  if (!chip) return;
+  event.preventDefault();
+  dom.paletteInput.value = chip.dataset.example;
+  dom.searchInput.value = chip.dataset.example;
+  runSearch(chip.dataset.example);
+  dom.paletteInput.focus();
+});
 dom.helpButton.addEventListener("click", () => openHelp());
 dom.closeHelp.addEventListener("click", closeHelp);
 dom.helpModal.addEventListener("click", (event) => {
