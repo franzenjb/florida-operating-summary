@@ -388,7 +388,7 @@
       "order": 26,
       "section": "Weather",
       "label": "USGS Flood Inundation",
-      "url": "/view?u=https%3A%2F%2Ffim.wim.usgs.gov%2Ffim&t=USGS%20Flood%20Inundation",
+      "url": "/view?u=https%3A%2F%2Fapps.usgs.gov%2Ffim%2F&t=USGS%20Flood%20Inundation",
       "kind": "Experience Builder page/view",
       "host": "experience.arcgis.com",
       "page": "8-Weather-",
