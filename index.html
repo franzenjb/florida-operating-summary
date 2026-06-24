@@ -267,7 +267,7 @@ const EMAIL_TO = "";
         // wrap:true → route through view.html so the destination gets our own
         // "Back to Florida ROS" button (its native Home button still points elsewhere).
         const href = i.wrap
-          ? 'view.html?u=' + encodeURIComponent(i.url) + '&t=' + encodeURIComponent(i.label)
+          ? 'view?u=' + encodeURIComponent(i.url) + '&t=' + encodeURIComponent(i.label)
           : i.url;
         return '<a href="' + esc(href) + '" target="_blank" rel="noopener noreferrer">' +
                '<span>' + esc(i.label) + '</span>' + CHEV + '</a>';
