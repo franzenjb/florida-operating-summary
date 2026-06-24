@@ -113,12 +113,17 @@
      Replace url: "#" with the real destination. Add a tile by adding another
      { label, url } line. Add a category by copying a whole { title, color,
      items: [...] } block. Save, commit, push — Vercel redeploys automatically.
+
+     wrap: true  →  add it to any tile whose destination is an internal ArcGIS
+     Experience/Dashboard (e.g. { label, url, wrap: true }). The tile then opens
+     inside view.html with a floating "Back to Florida ROS" button. Leave it OFF
+     for plain external sites (NWS, Census, NHC) — those just open in a new tab.
      ═══════════════════════════════════════════════════════════════════════════ -->
 <script>
 const CATEGORIES = [
   { title: "Situational Awareness", color: "#673169", items: [
-    { label: "Operating Picture",        url: "https://experience.arcgis.com/experience/f0cdcfa1d08d48da97197c51c6e3169d/page/1-Situational-Awareness?org=arc-nhq-gis&views=Operating-Picture" },
-    { label: "Situational Awareness",    url: "https://experience.arcgis.com/experience/f0cdcfa1d08d48da97197c51c6e3169d/page/1-Situational-Awareness?org=arc-nhq-gis&views=National-Hurricane-Center" },
+    { label: "Operating Picture",        url: "https://experience.arcgis.com/experience/f0cdcfa1d08d48da97197c51c6e3169d/page/1-Situational-Awareness?org=arc-nhq-gis&views=Operating-Picture", wrap: true },
+    { label: "Situational Awareness",    url: "https://experience.arcgis.com/experience/f0cdcfa1d08d48da97197c51c6e3169d/page/1-Situational-Awareness?org=arc-nhq-gis&views=National-Hurricane-Center", wrap: true },
     { label: "Weather Maps",             url: "https://www.cloudflare.com/" },
     { label: "Natl Hurricane Center",    url: "https://www.nhc.noaa.gov/" },
   ]},
@@ -259,7 +264,12 @@ const EMAIL_TO = "";
       shown++;
 
       const rows = items.map(function (i) {
-        return '<a href="' + esc(i.url) + '" target="_blank" rel="noopener noreferrer">' +
+        // wrap:true → route through view.html so the destination gets our own
+        // "Back to Florida ROS" button (its native Home button still points elsewhere).
+        const href = i.wrap
+          ? 'view.html?u=' + encodeURIComponent(i.url) + '&t=' + encodeURIComponent(i.label)
+          : i.url;
+        return '<a href="' + esc(href) + '" target="_blank" rel="noopener noreferrer">' +
                '<span>' + esc(i.label) + '</span>' + CHEV + '</a>';
       }).join("");
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Florida Regional Operating Summary</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #0A0A0A; }
+  #frame { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; background: #0A0A0A; }
+
+  /* Floating control bar — lives in THIS page, on top of the framed Experience */
+  #bar {
+    position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+    z-index: 2147483647; display: flex; align-items: center; gap: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #back, #open {
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none; white-space: nowrap;
+    box-shadow: 0 2px 12px rgba(0,0,0,.5);
+    transition: background 140ms ease, opacity 140ms ease;
+  }
+  #back {
+    background: #E21224; color: #FFFFFF; font-weight: 700; font-size: 13px;
+    letter-spacing: .01em; padding: 9px 15px 9px 11px; border-radius: 999px;
+  }
+  #back:hover { background: #C10F1F; }
+  #open {
+    background: rgba(20,20,22,.92); color: #D7D7D8; font-weight: 600; font-size: 12px;
+    padding: 8px 13px; border-radius: 999px; border: 1px solid #3A3A3E;
+  }
+  #open:hover { color: #FFFFFF; border-color: #6A6A6E; }
+  #back svg, #open svg { display: block; flex: 0 0 auto; }
+
+  /* Fallback shown only if the destination refuses to be framed */
+  #err {
+    position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
+    padding: 24px; font-family: Arial, Helvetica, sans-serif; color: #E6E6E6;
+  }
+  #err.show { display: flex; }
+  #err .card {
+    max-width: 460px; text-align: center; background: #141416;
+    border: 1px solid #26262A; border-top: 3px solid #E21224; padding: 30px 28px;
+  }
+  #err h1 { margin: 0 0 10px; font-family: Georgia, serif; font-size: 22px; color: #FFFFFF; }
+  #err p { margin: 0 0 20px; font-size: 14px; line-height: 1.5; color: #B9B9BC; }
+  #err a.go {
+    display: inline-block; background: #E21224; color: #FFFFFF; text-decoration: none;
+    font-weight: 700; font-size: 13px; padding: 11px 20px; border-radius: 999px;
+  }
+</style>
+</head>
+<body>
+
+<div id="bar">
+  <a id="back" href="/" title="Return to the Florida Regional Operating Summary">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+    Back to Florida ROS
+  </a>
+  <a id="open" href="#" target="_blank" rel="noopener noreferrer" title="Open this page in its own tab">
+    Open full
+    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"></path><path d="M20 4l-9 9"></path><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg>
+  </a>
+</div>
+
+<iframe id="frame"
+  allow="fullscreen; geolocation; clipboard-read; clipboard-write"
+  allowfullscreen
+  referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+<div id="err">
+  <div class="card">
+    <h1>This page can't be embedded</h1>
+    <p>The destination blocks being shown inside another page. Open it directly — then use your browser's Back to return here.</p>
+    <a class="go" id="errlink" href="#" target="_blank" rel="noopener noreferrer">Open the page&nbsp;↗</a>
+  </div>
+</div>
+
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var raw = params.get("u") || params.get("url") || "";
+  var title = params.get("t") || params.get("title") || "";
+
+  var frame = document.getElementById("frame");
+  var open = document.getElementById("open");
+  var err = document.getElementById("err");
+  var errlink = document.getElementById("errlink");
+
+  if (title) document.title = title + " — Florida ROS";
+
+  // Only allow framing of trusted Red Cross / ArcGIS hosts on this domain.
+  function allowedHost(h) {
+    h = (h || "").toLowerCase();
+    return h === "arcgis.com" || h.endsWith(".arcgis.com")
+        || h === "arcg.is"   || h.endsWith(".arcg.is")
+        || h === "jbf.com"   || h.endsWith(".jbf.com");
+  }
+
+  var dest = null;
+  try { dest = new URL(raw); } catch (e) { dest = null; }
+
+  function showError(href) {
+    errlink.href = href || "#";
+    open.href = href || "#";
+    err.classList.add("show");
+    frame.style.display = "none";
+  }
+
+  if (!dest || (dest.protocol !== "https:" && dest.protocol !== "http:") || !allowedHost(dest.hostname)) {
+    // Bad / missing / non-allowlisted URL — don't frame arbitrary content.
+    showError(dest && (dest.protocol === "https:" || dest.protocol === "http:") ? dest.href : "/");
+    return;
+  }
+
+  open.href = dest.href;
+  errlink.href = dest.href;
+  frame.src = dest.href;
+})();
+</script>
+
+</body>
+</html>
