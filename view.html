@@ -84,9 +84,16 @@
 
   function allowedHost(h) {
     h = (h || "").toLowerCase();
-    return h === "arcgis.com" || h.endsWith(".arcgis.com")
-        || h === "arcg.is"   || h.endsWith(".arcg.is")
-        || h === "jbf.com"   || h.endsWith(".jbf.com");
+    // Curated Florida ROS destinations only (not arbitrary input — prevents
+    // /view being abused to frame phishing under this domain). app.powerbi.com
+    // is intentionally excluded: it sends X-Frame-Options: deny, so it falls
+    // through to the launch card (Back bar + "Open ↗") instead of a blank frame.
+    var ok = ["arcgis.com","arcg.is","jbf.com","noaa.gov","weather.gov",
+              "usgs.gov","nwcg.gov","unl.edu","baynews9.com","redcross.org"];
+    for (var i = 0; i < ok.length; i++) {
+      if (h === ok[i] || h.endsWith("." + ok[i])) return true;
+    }
+    return false;
   }
 
   var dest = null;
