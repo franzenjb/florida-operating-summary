@@ -443,6 +443,26 @@ kbd {
   text-shadow: none;
 }
 
+.target-tile:has(.tile-note) .tile-label {
+  max-width: calc(100% - 72px);
+}
+
+.tile-note {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  z-index: 2;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #fbbf24;
+  color: #1f2937;
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .detail-view {
   min-height: calc(100vh - 128px);
 }

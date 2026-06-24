@@ -457,7 +457,8 @@
       "webmap": "",
       "x": 760,
       "y": 153,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "note": "In repair"
     },
     {
       "order": 33,
@@ -472,7 +473,8 @@
       "webmap": "",
       "x": 760,
       "y": 192,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "note": "In repair"
     },
     {
       "order": 34,
@@ -577,7 +579,8 @@
       "webmap": "",
       "x": 1071,
       "y": 114,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "note": "In repair"
     },
     {
       "order": 41,

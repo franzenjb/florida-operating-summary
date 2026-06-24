@@ -339,6 +339,7 @@ function renderSections() {
                 (item) => `
                   <a class="target-tile ${isPlaceholder(item) ? "is-placeholder" : ""}" ${linkAttrs(item)}>
                     <span class="tile-label">${item.label}</span>
+                    ${item.note ? `<span class="tile-note">${item.note}</span>` : ""}
                   </a>
                 `
               )
