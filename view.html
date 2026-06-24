@@ -143,17 +143,23 @@
     open.href = safe;
     if (title) document.getElementById("errTitle").textContent = title;
 
-    // Live thumbnail via WordPress mShots (free, no key). Public pages only ever
-    // reach this card; renders a screenshot of the destination.
-    if (/^https?:/.test(safe)) {
-      var shot = "https://s.wordpress.com/mshots/v1/" + encodeURIComponent(safe) + "?w=1280&h=800";
-      var img = document.getElementById("preview");
-      var ph = document.getElementById("previewPh");
-      img.onload = function () { if (img.naturalWidth > 1) ph.style.display = "none"; };
+    // Pre-generated static thumbnails (captured ahead of time, committed in repo —
+    // no runtime screenshot service). Keyed by destination host. To add one:
+    // capture assets/previews/<slug>.png and map the host here.
+    var PREVIEWS = {
+      "apps.usgs.gov": "/assets/previews/usgs-fim.png"
+    };
+    var host = "";
+    try { host = new URL(safe).hostname.toLowerCase(); } catch (e) {}
+    var img = document.getElementById("preview");
+    var ph = document.getElementById("previewPh");
+    var local = PREVIEWS[host];
+    if (local) {
+      img.onload = function () { ph.style.display = "none"; };
       img.onerror = function () { ph.textContent = "Preview unavailable"; };
-      img.src = shot;
-      // mShots serves a generating-placeholder first; one delayed reload fetches the real shot.
-      setTimeout(function () { if (img.naturalWidth <= 1) img.src = shot; }, 4000);
+      img.src = local;
+    } else {
+      ph.textContent = "";  // no preview on file — show plain panel
     }
     err.classList.add("show");
     frame.style.display = "none";
