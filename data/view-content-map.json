@@ -1,0 +1,331 @@
+{
+  "Emergency Response Vehicles": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/b70a992090c841d2be494e2dfd847646",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/b70a992090c841d2be494e2dfd847646"
+    ]
+  },
+  "Trailers": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/4cda594568144ba3ba5837afe3777646",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/4cda594568144ba3ba5837afe3777646"
+    ]
+  },
+  "Feeding Logistics": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/4c2b2201a00d4f46bd8d5e735fd05e36#",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/4c2b2201a00d4f46bd8d5e735fd05e36#"
+    ]
+  },
+  "Door": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/f25117c3cd2149ca9634801803ed5393",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/f25117c3cd2149ca9634801803ed5393"
+    ]
+  },
+  "Workforce": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/ecb9f69de68549d1ba24a95015e9f2bc&nbsp;",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/ecb9f69de68549d1ba24a95015e9f2bc&nbsp;"
+    ]
+  },
+  "Latino Engagement": {
+    "maps": [],
+    "embeds": [
+      "https://storymaps.arcgis.com/stories/4a4bbb96dc2340cf967c40b65ad47271",
+      "https://experience.arcgis.com/experience/6bf5c20fb99848358a114b50e1a75d76"
+    ]
+  },
+  "DAT Response Frequency": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/e56c88326af64597a04bb499580e9b23#",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/e56c88326af64597a04bb499580e9b23#"
+    ]
+  },
+  "Home Fire Reg Dashboard": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/instant/portfolio/index.html?appid=45abedf650ab408980ef37abf95ab34b",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/instant/portfolio/index.html?appid=45abedf650ab408980ef37abf95ab34b"
+    ]
+  },
+  "Home Fire Trend Report": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/b279958c2f0141ee880c41550756bb6a#",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/b279958c2f0141ee880c41550756bb6a#"
+    ]
+  },
+  "National Weather": {
+    "maps": [],
+    "embeds": [
+      "https://mobile.weather.gov"
+    ]
+  },
+  "Hurricane Center": {
+    "maps": [],
+    "embeds": [
+      "https://www.nhc.noaa.gov"
+    ]
+  },
+  "River Gauges": {
+    "maps": [],
+    "embeds": [
+      "https://water.noaa.gov/#@=-96.401081,38.1465724,3.9822739&amp;b=topographic&amp;g=obsFcst,1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!0!0!0!0!0,0.5,1!1!1!1!0,0,0&amp;ab=0,0,#D94B4A,1,1,1,#cccccc,1,0,0,#B243B1,1,0,0,#98E09A,1&amp;a=hydrologic,0.35&amp;s=0,0,0.9,0.9&amp;n=false,#72afe9,0.9,0,0.9,0,0.9&amp;p=false,0.75,0,7,0,1,2024,4,30,0&amp;d=0,0,1,1,1,1,1,1,#006EFF,1,#006EFF,1,#006EFF&amp;q=",
+      "https://water.noaa.gov/#@=-96.401081,38.1465724,3.9822739&amp;b=topographic&amp;g=obsFcst,1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!0!0!0!0!0,0.5,1!1!1!1!0,0,0&amp;ab=0,0,#D94B4A,1,1,1,#cccccc,1,0,0,#B243B1,1,0,0,#98E09A,1&amp;a=hydrologic,0.35&amp;s=0,0,0.9,0.9&amp;n=false,#72afe9,0.9,0,0.9,0,0.9&amp;p=false,0.75,0,7,0,1,2024,4,30,0&amp;d=0,0,1,1,1,1,1,1,#006EFF,1,#006EFF,1,#006EFF&amp;q="
+    ]
+  },
+  "Precipitation": {
+    "maps": [],
+    "embeds": [
+      "https://www.nhc.noaa.gov/mobile"
+    ]
+  },
+  "Storm Prediction": {
+    "maps": [],
+    "embeds": [
+      "https://www.spc.noaa.gov/exper/href/?model=href&amp;product=sbcape_mmm_series&amp;sector=conus",
+      "https://www.spc.noaa.gov/exper/href/?model=href&amp;product=sbcape_mmm_series&amp;sector=conus"
+    ]
+  },
+  "Demographics": {
+    "maps": [],
+    "embeds": [
+      "https://experience.arcgis.com/experience/13a111e06ad242fba0fb62f25199c7dd/page/Page-1",
+      "https://experience.arcgis.com/experience/13a111e06ad242fba0fb62f25199c7dd/page/Page-1"
+    ]
+  },
+  "FEMA RAPT": {
+    "maps": [],
+    "embeds": [
+      "https://fema.maps.arcgis.com/apps/webappviewer/index.html?id=90c0c996a5e242a79345cdbc5f758fc6",
+      "https://fema.maps.arcgis.com/apps/webappviewer/index.html?id=90c0c996a5e242a79345cdbc5f758fc6"
+    ]
+  },
+  "Disaster Service Tech": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/b1cd7d0b382c4fa3bacea57448102200",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/b1cd7d0b382c4fa3bacea57448102200"
+    ]
+  },
+  "Shelter Intake": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/651c6d08e4874210ade0af696ba82f07",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/651c6d08e4874210ade0af696ba82f07"
+    ]
+  },
+  "Call Center": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/2f1ada885a8245d2a8500a5970e44bd3",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/2f1ada885a8245d2a8500a5970e44bd3"
+    ]
+  },
+  "Current OPS": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/84b1d8a1ff6b4f7c892b2f8da31b3657",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/84b1d8a1ff6b4f7c892b2f8da31b3657"
+    ]
+  },
+  "National Readiness": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/ccc84af4f5374f46b0734a394fd181f1",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/ccc84af4f5374f46b0734a394fd181f1"
+    ]
+  },
+  "Key Program Metrics": {
+    "maps": [],
+    "embeds": [
+      "<p><br></p>",
+      "<p><br></p>"
+    ]
+  },
+  "Hurricane Planning": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/980f89b6662a42febee6a269f5b216d9",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/980f89b6662a42febee6a269f5b216d9"
+    ]
+  },
+  "NCFL Metric": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/33166a2c50f5436abb53b634870c6461#mode=edit"
+    ]
+  },
+  "SF Metric": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/0bf2d7cf74de4b0fb1004b6ec59f847e#"
+    ]
+  },
+  "FEMA County SVI Beta": {
+    "maps": [],
+    "embeds": [
+      "https://experience.arcgis.com/experience/0a317e8998534c30a9b2d3861c814d42/page/County-Overview/?views=Analysis-Tools",
+      "https://experience.arcgis.com/experience/0a317e8998534c30a9b2d3861c814d42/page/County-Overview/?views=Analysis-Tools"
+    ]
+  },
+  "Warehouse Inventory": {
+    "maps": [],
+    "embeds": [
+      "https://experience.arcgis.com/experience/8a7263d8ba774e51aa385362cfbc719a/?draft=true",
+      "https://experience.arcgis.com/experience/8a7263d8ba774e51aa385362cfbc719a/?draft=true"
+    ]
+  },
+  "USGS Flood Inundation": {
+    "maps": [],
+    "embeds": [
+      "https://fim.wim.usgs.gov/fim"
+    ]
+  },
+  "Level 1-2 FL Response Demographics": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/f864ddb106b6403589f05164b78ba1b7"
+    ]
+  },
+  "Windy.com": {
+    "maps": [],
+    "embeds": [
+      "https://www.windy.com/?27.971,-82.580,8"
+    ]
+  },
+  "Regional Inventory Mgmt": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=ad03bf5fd906427a84ab39c401ef63d5",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=ad03bf5fd906427a84ab39c401ef63d5"
+    ]
+  },
+  "Military and Veterans": {
+    "maps": [],
+    "embeds": [
+      "https://experience.arcgis.com/experience/67d27285436b42608919c323c22f54f8",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/instant/basic/index.html?appid=2a083835fd194650b87a03966d4e549e"
+    ]
+  },
+  "SECAR HFC": {
+    "maps": [],
+    "embeds": [
+      "https://experience.arcgis.com/experience/528f0a32641241cd89697c6298dfb445"
+    ]
+  },
+  "DAT Planning Tool": {
+    "maps": [],
+    "embeds": [
+      "https://experience.arcgis.com/experience/e15e5abb6b0d40759a12090cd8eb9114/?draft=true",
+      "https://livingatlas.arcgis.com/hurricane"
+    ]
+  },
+  "DAT Response App": {
+    "maps": [],
+    "embeds": [
+      "https://experience.arcgis.com/experience/ffd714640fa8473ab39d3b86ebccbdae",
+      "https://experience.arcgis.com/experience/ffd714640fa8473ab39d3b86ebccbdae"
+    ]
+  },
+  "Operating Picture": {
+    "maps": [
+      [
+        "fe91c670ab2648b8ad460d6f4fb86689",
+        "Florida Situation Map"
+      ],
+      [
+        "fe91c670ab2648b8ad460d6f4fb86689",
+        "Florida Situation Map"
+      ],
+      [
+        "fe91c670ab2648b8ad460d6f4fb86689",
+        "Florida Situation Map"
+      ],
+      [
+        "fe91c670ab2648b8ad460d6f4fb86689",
+        "Florida Situation Map"
+      ]
+    ],
+    "embeds": [
+      "<p><br></p>",
+      "<p><br></p>",
+      "<p><br></p>"
+    ]
+  },
+  "Tropical Atlantic": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=f84890e5160841c687bae568482e2587",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=f84890e5160841c687bae568482e2587",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=f84890e5160841c687bae568482e2587"
+    ]
+  },
+  "National Hurricane Center": {
+    "maps": [],
+    "embeds": [
+      "https://www.nhc.noaa.gov/gtwo.php",
+      "https://www.nhc.noaa.gov/gtwo.php",
+      "https://www.nhc.noaa.gov/gtwo.php"
+    ]
+  },
+  "FEMA Flood": {
+    "maps": [],
+    "embeds": [
+      "https://hazards-fema.maps.arcgis.com/apps/webappviewer/index.html?id=8b0adb51996444d4879338b5529aa9cd#:~:text=URL%3A%20https%3A%2F%2Fhazards,100",
+      "https://hazards-fema.maps.arcgis.com/apps/webappviewer/index.html?id=8b0adb51996444d4879338b5529aa9cd#:~:text=URL%3A%20https%3A%2F%2Fhazards,100",
+      "https://hazards-fema.maps.arcgis.com/apps/webappviewer/index.html?id=8b0adb51996444d4879338b5529aa9cd#:~:text=URL%3A%20https%3A%2F%2Fhazards,100"
+    ]
+  },
+  "Weather": {
+    "maps": [],
+    "embeds": [
+      "https://baynews9.com/fl/tampa/weather/tropical#Tropical_Track_1-WX",
+      "https://baynews9.com/fl/tampa/weather/tropical#Tropical_Track_1-WX",
+      "https://baynews9.com/fl/tampa/weather/tropical#Tropical_Track_1-WX"
+    ]
+  },
+  "Flood Gauges": {
+    "maps": [],
+    "embeds": [
+      "https://water.noaa.gov/gauges/OPTF1",
+      "https://water.noaa.gov/gauges/OPTF1"
+    ]
+  },
+  "Natl Hurricane Ctr": {
+    "maps": [],
+    "embeds": [
+      "https://www.nhc.noaa.gov/gtwo.php",
+      "https://www.nhc.noaa.gov/gtwo.php",
+      "https://www.nhc.noaa.gov/gtwo.php"
+    ]
+  },
+  "FEMA Flood    2": {
+    "maps": [],
+    "embeds": [
+      "https://hazards-fema.maps.arcgis.com/apps/webappviewer/index.html?id=8b0adb51996444d4879338b5529aa9cd#:~:text=URL%3A%20https%3A%2F%2Fhazards,100",
+      "https://hazards-fema.maps.arcgis.com/apps/webappviewer/index.html?id=8b0adb51996444d4879338b5529aa9cd#:~:text=URL%3A%20https%3A%2F%2Fhazards,100",
+      "https://hazards-fema.maps.arcgis.com/apps/webappviewer/index.html?id=8b0adb51996444d4879338b5529aa9cd#:~:text=URL%3A%20https%3A%2F%2Fhazards,100"
+    ]
+  },
+  "SECAR SitAware": {
+    "maps": [],
+    "embeds": [
+      "https://experience.arcgis.com/experience/1057b83e298b42bf88c9d1f82619d026"
+    ]
+  },
+  "FD Engage Dashboard": {
+    "maps": [],
+    "embeds": [
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/8c6edb390bb449018ea27a810a6ed80a",
+      "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/8c6edb390bb449018ea27a810a6ed80a"
+    ]
+  }
+}
