@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Florida Regional Operating Summary</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #0A0A0A;
+    color: #E6E6E6;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 48px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    display: flex; align-items: center; gap: 28px;
+    padding: 16px 32px;
+    background: #141416;
+    border-bottom: 1px solid #2A2A2D;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: 0 0 auto; }
+  .brand span { font-weight: 700; line-height: 1.05; font-size: 15px; color: #E6E6E6; letter-spacing: -0.01em; }
+  .return-note { font-size: 11px; color: #9F9FA3; font-style: italic; line-height: 1.3; max-width: 200px; }
+  h1 {
+    flex: 1; text-align: center; margin: 0;
+    font-family: Georgia, 'Times New Roman', serif; font-weight: 700;
+    font-size: 30px; letter-spacing: -0.015em; color: #FFFFFF;
+  }
+  .utils { display: flex; align-items: center; gap: 22px; flex: 0 0 auto; }
+  .utils a, .utils button {
+    background: none; border: none; padding: 0; cursor: pointer;
+    color: #C9C9CC; text-decoration: none;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+  }
+  .utils .label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  main { padding: 28px 32px 0; }
+
+  .search {
+    display: flex; align-items: center; gap: 10px;
+    max-width: 440px; margin-bottom: 26px; padding: 0 12px;
+    border: 1px solid #2E2E32; background: #141416;
+  }
+  .search input {
+    flex: 1; background: none; border: none; outline: none;
+    color: #FFFFFF; font-family: inherit; font-size: 14px; padding: 11px 0;
+  }
+  .search input::placeholder { color: #6E6E72; }
+  .search button { background: none; border: none; cursor: pointer; color: #9F9FA3; padding: 6px; display: none; align-items: center; }
+  .search button:hover { color: #FFFFFF; }
+  .search.has-query button { display: flex; }
+
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; align-items: start; }
+
+  .card { background: #141416; border: 1px solid #26262A; }
+  .card .accent { height: 3px; }
+  .card h2 {
+    margin: 0; padding: 13px 16px 11px;
+    border-bottom: 1px solid #26262A;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; color: #FFFFFF;
+  }
+  .card nav { display: flex; flex-direction: column; }
+  .card a {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 11px 16px 11px 14px; text-decoration: none;
+    color: #D7D7D8; font-size: 13.5px; line-height: 1.25;
+    border-left: 2px solid transparent; border-bottom: 1px solid #1F1F22;
+    transition: background 150ms cubic-bezier(.4,0,.2,1), border-color 150ms cubic-bezier(.4,0,.2,1), color 150ms cubic-bezier(.4,0,.2,1);
+  }
+  .card a:last-child { border-bottom: none; }
+  .card a:hover { background: #1C1C20; border-left-color: #E21224; color: #FFFFFF; }
+  .card a .chev { flex: 0 0 auto; stroke: #5C5C60; }
+  .card a:hover .chev { stroke: #9A9A9E; }
+
+  .empty { display: none; padding: 44px 16px; text-align: center; color: #9F9FA3; font-size: 14px; }
+  .empty.show { display: block; }
+
+  footer {
+    display: flex; gap: 16px; margin-top: 28px; padding-top: 22px;
+    border-top: 1px solid #26262A;
+  }
+  footer a {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 11px 18px; text-decoration: none;
+    background: #141416; font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+    transition: background 150ms cubic-bezier(.4,0,.2,1), border-color 150ms cubic-bezier(.4,0,.2,1), color 150ms cubic-bezier(.4,0,.2,1);
+  }
+  .btn-red { border: 1px solid #E21224; color: #FFFFFF; }
+  .btn-red:hover { background: #E21224; }
+  .btn-muted { border: 1px solid #3A3A3E; color: #9F9FA3; }
+  .btn-muted:hover { border-color: #6A6A6E; color: #D7D7D8; }
+
+  @media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 760px) {
+    header { flex-wrap: wrap; gap: 16px; }
+    h1 { order: 3; flex-basis: 100%; font-size: 24px; text-align: left; }
+    .return-note { display: none; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    main { padding: 20px 18px 0; }
+  }
+  @media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     EDIT YOUR LINKS HERE
+     Replace url: "#" with the real destination. Add a tile by adding another
+     { label, url } line. Add a category by copying a whole { title, color,
+     items: [...] } block. Save, commit, push — Vercel redeploys automatically.
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<script>
+const CATEGORIES = [
+  { title: "Situational Awareness", color: "#673169", items: [
+    { label: "Operating Picture",        url: "https://experience.arcgis.com/experience/f0cdcfa1d08d48da97197c51c6e3169d/page/1-Situational-Awareness?org=arc-nhq-gis&views=Operating-Picture" },
+    { label: "Situational Awareness",    url: "https://experience.arcgis.com/experience/f0cdcfa1d08d48da97197c51c6e3169d/page/1-Situational-Awareness?org=arc-nhq-gis&views=National-Hurricane-Center" },
+    { label: "Weather Maps",             url: "https://www.cloudflare.com/" },
+    { label: "Natl Hurricane Center",    url: "https://www.nhc.noaa.gov/" },
+  ]},
+  { title: "Preparedness", color: "#0091CD", items: [
+    { label: "NCFL Preparedness",        url: "#" },
+    { label: "SFL Preparedness",         url: "#" },
+    { label: "SECAR HFC Planning Tool",  url: "#" },
+    { label: "HFC Regional Dashboard",   url: "#" },
+  ]},
+  { title: "Trailer Warehouse", color: "#EE7C11", items: [
+    { label: "RIM Inventory Mgmt",       url: "#" },
+    { label: "ERV",                      url: "#" },
+    { label: "Trailers",                 url: "#" },
+    { label: "SF Log Assets",            url: "#" },
+  ]},
+  { title: "Workforce & Training", color: "#004B79", items: [
+    { label: "DOOR",                     url: "#" },
+    { label: "Workforce Planning Tool",  url: "#" },
+    { label: "DWE Tool",                 url: "#" },
+  ]},
+  { title: "Partnerships", color: "#7F181B", items: [
+    { label: "Relationship Manager",     url: "#" },
+    { label: "Latino Engagement",        url: "#" },
+  ]},
+  { title: "Level 1-2 DAT", color: "#8EC06C", items: [
+    { label: "Level 1-2 Dashboard",      url: "#" },
+    { label: "DAT Response Frequency",   url: "#" },
+    { label: "RC Respond",               url: "#" },
+    { label: "Home Fire Trend Report",   url: "#" },
+    { label: "FD Engage Dashboard",      url: "#" },
+  ]},
+  { title: "Readiness Metric", color: "#ECB731", items: [
+    { label: "National Readiness",       url: "#" },
+    { label: "DCS Goals",                url: "#" },
+    { label: "Hurricane Planning",       url: "#" },
+    { label: "Home Fire Year over Year", url: "#" },
+  ]},
+  { title: "Weather", color: "#537B35", items: [
+    { label: "Hurricane Center",         url: "https://www.nhc.noaa.gov/" },
+    { label: "National Weather",         url: "https://www.weather.gov/" },
+    { label: "Storm Prediction",         url: "https://www.spc.noaa.gov/" },
+    { label: "River Gauges",             url: "https://water.noaa.gov/" },
+    { label: "USGS Flood",               url: "https://waterwatch.usgs.gov/" },
+    { label: "Drought Southeast",        url: "https://droughtmonitor.unl.edu/" },
+    { label: "Wildfire Risks",           url: "https://inciweb.wildfire.gov/" },
+  ]},
+  { title: "Community Data", color: "#387A78", items: [
+    { label: "Demographics",                       url: "https://data.census.gov/" },
+    { label: "Military and Veterans",              url: "#" },
+    { label: "Military and Veterans: Community",    url: "#" },
+    { label: "FEMA RAPT",                          url: "https://www.fema.gov/" },
+    { label: "Community Mobilization",             url: "#" },
+    { label: "Alice Data",                         url: "https://www.unitedforalice.org/" },
+  ]},
+  { title: "Operations", color: "#56A0D3", items: [
+    { label: "Disaster Service Tech",    url: "#" },
+    { label: "Shelter Intake",           url: "#" },
+    { label: "Call Center",              url: "#" },
+    { label: "Current Ops Report",       url: "#" },
+  ]},
+];
+
+// Where the "Return to Table of Contents" Red Cross mark links, and the Email address.
+const TOC_URL = "#";
+const EMAIL_TO = "";
+</script>
+
+<header>
+  <a class="brand" id="brand" href="#" title="Return to Table of Contents">
+    <svg viewBox="0 0 24 24" width="34" height="34" aria-label="American Red Cross">
+      <rect x="9" y="2" width="6" height="20" rx="1" fill="#E21224"></rect>
+      <rect x="2" y="9" width="20" height="6" rx="1" fill="#E21224"></rect>
+    </svg>
+    <span>American<br>Red Cross</span>
+  </a>
+  <span class="return-note">Click the Red Cross mark to return to the Table of Contents</span>
+  <h1>Florida Regional Operating Summary</h1>
+  <div class="utils">
+    <button title="Menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+    </button>
+    <a id="email" href="#" title="Email">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="M3 7l9 6 9-6"></path></svg>
+      <span class="label">Email</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="search" id="search">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#7A7A7E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+    <input type="text" id="q" placeholder="Find a tool or dataset" autocomplete="off">
+    <button id="clear" title="Clear" aria-label="Clear search">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+    </button>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">No tools or datasets match your search.</div>
+
+  <footer>
+    <a class="btn-red" href="#">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 1 1 21 11.5z"></path></svg>
+      Questions &amp; Comments
+    </a>
+    <a class="btn-muted" href="#">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.5l-7.4 12.8A1.5 1.5 0 0 0 4.2 18.5h15.6a1.5 1.5 0 0 0 1.3-2.2L13.7 3.5a1.5 1.5 0 0 0-2.6 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="16.5" x2="12" y2="16.6"></line></svg>
+      Under Construction Items
+    </a>
+  </footer>
+</main>
+
+<script>
+  // Wire the header links from config
+  document.getElementById("brand").href = TOC_URL;
+  const emailEl = document.getElementById("email");
+  emailEl.href = EMAIL_TO ? "mailto:" + EMAIL_TO : "#";
+
+  const CHEV = '<svg class="chev" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>';
+  const grid = document.getElementById("grid");
+  const emptyEl = document.getElementById("empty");
+  const input = document.getElementById("q");
+  const searchWrap = document.getElementById("search");
+
+  function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+
+  function render(query) {
+    const q = (query || "").trim().toLowerCase();
+    grid.innerHTML = "";
+    let shown = 0;
+
+    CATEGORIES.forEach(function (cat) {
+      const titleHit = cat.title.toLowerCase().includes(q);
+      const items = (!q || titleHit) ? cat.items : cat.items.filter(function (i) {
+        return i.label.toLowerCase().includes(q);
+      });
+      if (items.length === 0) return;
+      shown++;
+
+      const rows = items.map(function (i) {
+        return '<a href="' + esc(i.url) + '" target="_blank" rel="noopener noreferrer">' +
+               '<span>' + esc(i.label) + '</span>' + CHEV + '</a>';
+      }).join("");
+
+      const card = document.createElement("section");
+      card.className = "card";
+      card.innerHTML =
+        '<div class="accent" style="background:' + cat.color + '"></div>' +
+        '<h2>' + esc(cat.title) + '</h2>' +
+        '<nav>' + rows + '</nav>';
+      grid.appendChild(card);
+    });
+
+    emptyEl.classList.toggle("show", shown === 0);
+  }
+
+  input.addEventListener("input", function (e) {
+    searchWrap.classList.toggle("has-query", e.target.value.length > 0);
+    render(e.target.value);
+  });
+  document.getElementById("clear").addEventListener("click", function () {
+    input.value = "";
+    searchWrap.classList.remove("has-query");
+    render("");
+    input.focus();
+  });
+
+  render("");
+</script>
+
+</body>
+</html>
