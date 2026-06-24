@@ -144,11 +144,11 @@
   var SHARING = PORTAL + "/sharing/rest";
   var CLIENT_ID = "NOYP9RCgBYrcjtRC";              // "BioMed Map Workbench OAuth"
   var WEBMAP_ID = "fe91c670ab2648b8ad460d6f4fb86689"; // Florida Situation Map
-  // Redirect must be a registered *.jbf.com host; fall back to basemap.jbf.com
-  // when opened from .vercel.app/localhost (it relays the token cross-origin).
-  var onJbf = location.hostname.endsWith(".jbf.com");
-  var REDIRECT = onJbf ? (location.origin + "/oauth-callback.html")
-                       : "https://basemap.jbf.com/oauth-callback.html";
+  // This site uses cleanUrls, which 308-strips ".html" and drops the OAuth token
+  // hash. So use the proven cross-origin relay on basemap.jbf.com (cleanUrls off,
+  // serves 200). AGOL accepts it via the *.jbf.com wildcard redirect registration;
+  // its callback postMessages the token back to this opener window.
+  var REDIRECT = "https://basemap.jbf.com/oauth-callback.html";
 
   // ---- OAuth implicit-flow popup (ported from red-cross-map-base-template) -
   function signIn() {
