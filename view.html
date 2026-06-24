@@ -34,12 +34,40 @@
 
   #frame { flex: 1; width: 100%; border: 0; background: #0A0A0A; min-height: 0; }
 
-  #err { flex: 1; display: none; align-items: center; justify-content: center; padding: 24px; color: #E6E6E6; }
+  /* Launch card with a large live preview (for sites that block embedding) */
+  #err { flex: 1; display: none; align-items: center; justify-content: center; padding: 28px; overflow: auto; }
   #err.show { display: flex; }
-  #err .card { max-width: 460px; text-align: center; background: #141416; border: 1px solid #26262A; border-top: 3px solid #E21224; padding: 30px 28px; }
-  #err h1 { margin: 0 0 10px; font-family: Georgia, serif; font-size: 22px; color: #FFFFFF; }
-  #err p { margin: 0 0 20px; font-size: 14px; line-height: 1.5; color: #B9B9BC; }
-  #err a.go { display: inline-block; background: #E21224; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 13px; padding: 11px 20px; border-radius: 999px; }
+  #err .card { width: 100%; max-width: 640px; text-align: center; color: #E6E6E6; }
+  .preview {
+    display: block; width: 100%; aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden;
+    border: 1px solid #2A2A2D; background: #141416 center/cover no-repeat; position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,.5); text-decoration: none;
+  }
+  .preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .preview .ph {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: #6E6E72; font-size: 13px; letter-spacing: .04em;
+  }
+  .preview .badge {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    background: rgba(10,10,10,.78); color: #FFD9DD; border: 1px solid #E21224;
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px;
+  }
+  .preview .hovergo {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: rgba(10,10,10,.45); opacity: 0; transition: opacity 140ms ease; z-index: 2;
+    color: #FFFFFF; font-weight: 700; font-size: 15px;
+  }
+  .preview:hover .hovergo { opacity: 1; }
+  #err h1 { margin: 18px 0 6px; font-family: Georgia, serif; font-size: 22px; color: #FFFFFF; }
+  #err p { margin: 0 0 18px; font-size: 13.5px; line-height: 1.5; color: #9F9FA3; }
+  #err a.go {
+    display: inline-flex; align-items: center; gap: 8px; background: #E21224; color: #FFFFFF;
+    text-decoration: none; font-weight: 700; font-size: 14px; padding: 12px 22px; border-radius: 999px;
+  }
+  #err a.go:hover { background: #C10F1F; }
+  #err a.go svg { display: block; }
 </style>
 </head>
 <body>
@@ -63,9 +91,18 @@
 
 <div id="err">
   <div class="card">
-    <h1>This page can't be embedded</h1>
-    <p>The destination blocks being shown inside another page. Open it directly — then use Back to return here.</p>
-    <a class="go" id="errlink" href="#" target="_blank" rel="noopener noreferrer">Open the page&nbsp;↗</a>
+    <a class="preview" id="previewLink" href="#" target="_blank" rel="noopener noreferrer">
+      <span class="badge">Opens in a new tab</span>
+      <img id="preview" alt="" referrerpolicy="no-referrer">
+      <span class="ph" id="previewPh">Loading preview…</span>
+      <span class="hovergo">Open ↗</span>
+    </a>
+    <h1 id="errTitle">This site opens in its own tab</h1>
+    <p id="errNote">This page can't be displayed inside the summary, so it opens in a new tab. Use “Back to Florida ROS” to return.</p>
+    <a class="go" id="errlink" href="#" target="_blank" rel="noopener noreferrer">
+      Open the page
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"></path><path d="M20 4l-9 9"></path><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg>
+    </a>
   </div>
 </div>
 
@@ -85,11 +122,9 @@
   function allowedHost(h) {
     h = (h || "").toLowerCase();
     // Hosts that send X-Frame-Options/deny — never frame (would be blank). They
-    // fall through to the launch card (Back bar + "Open ↗") instead.
+    // fall through to the preview launch card instead.
     var blocked = ["app.powerbi.com", "apps.usgs.gov"];
     if (blocked.indexOf(h) !== -1) return false;
-    // Curated Florida ROS destinations only (not arbitrary input — prevents
-    // /view being abused to frame phishing under this domain).
     var ok = ["arcgis.com","arcg.is","jbf.com","noaa.gov","weather.gov",
               "usgs.gov","nwcg.gov","unl.edu","baynews9.com","redcross.org"];
     for (var i = 0; i < ok.length; i++) {
@@ -101,13 +136,31 @@
   var dest = null;
   try { dest = new URL(raw); } catch (e) { dest = null; }
 
-  function showError(href) {
-    errlink.href = href || "#"; open.href = href || "#";
-    err.classList.add("show"); frame.style.display = "none";
+  function showCard(href) {
+    var safe = href && /^https?:/.test(href) ? href : "/";
+    document.getElementById("errlink").href = safe;
+    document.getElementById("previewLink").href = safe;
+    open.href = safe;
+    if (title) document.getElementById("errTitle").textContent = title;
+
+    // Live thumbnail via WordPress mShots (free, no key). Public pages only ever
+    // reach this card; renders a screenshot of the destination.
+    if (/^https?:/.test(safe)) {
+      var shot = "https://s.wordpress.com/mshots/v1/" + encodeURIComponent(safe) + "?w=1280&h=800";
+      var img = document.getElementById("preview");
+      var ph = document.getElementById("previewPh");
+      img.onload = function () { if (img.naturalWidth > 1) ph.style.display = "none"; };
+      img.onerror = function () { ph.textContent = "Preview unavailable"; };
+      img.src = shot;
+      // mShots serves a generating-placeholder first; one delayed reload fetches the real shot.
+      setTimeout(function () { if (img.naturalWidth <= 1) img.src = shot; }, 4000);
+    }
+    err.classList.add("show");
+    frame.style.display = "none";
   }
 
   if (!dest || (dest.protocol !== "https:" && dest.protocol !== "http:") || !allowedHost(dest.hostname)) {
-    showError(dest && (dest.protocol === "https:" || dest.protocol === "http:") ? dest.href : "/");
+    showCard(dest && (dest.protocol === "https:" || dest.protocol === "http:") ? dest.href : "");
     return;
   }
   open.href = dest.href;
