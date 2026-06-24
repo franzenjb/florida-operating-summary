@@ -14,7 +14,7 @@
   <body>
     <main class="ops-app" data-testid="ops-app">
       <header class="topbar">
-        <a class="brand" href="https://experience.arcgis.com/experience/f0cdcfa1d08d48da97197c51c6e3169d/page/Table-of-Contents" target="_blank" rel="noreferrer">
+        <a class="brand" href="/" aria-label="Florida Regional Operating Summary home">
           <img class="brand-logo" src="./assets/logos/red-cross/red-cross-logo-horizontal.png" alt="American Red Cross" />
         </a>
         <h1 class="app-title">
@@ -69,11 +69,15 @@
           </div>
           <div class="help-layout">
             <section class="help-section">
-              <h2>Find a product</h2>
+              <h2>What this is</h2>
+              <p>One launchpad for American Red Cross Florida regional operating products &mdash; maps, dashboards, situational awareness, weather, and reference tools. Every tile opens its live product.</p>
+            </section>
+            <section class="help-section">
+              <h2>How to use it</h2>
               <ul class="help-list">
-                <li><strong>Search:</strong> press <code>/</code>, type, then press Enter for the best match.</li>
-                <li><strong>Filter:</strong> narrow by opened link destination: Experience, ArcGIS, Power BI, or External.</li>
-                <li><strong>Embedded content:</strong> a Power BI report may still open inside Experience Builder.</li>
+                <li><strong>Browse:</strong> click any tile to open its product.</li>
+                <li><strong>Search:</strong> press <code>/</code> or click the search box, type, then press Enter for the best match.</li>
+                <li><strong>Filter:</strong> narrow tiles by destination &mdash; Experience, ArcGIS, Power BI, or External.</li>
               </ul>
             </section>
             <section class="help-section" data-admin-only hidden>
@@ -87,14 +91,6 @@
                 <li><strong>Edit:</strong> open the <button class="inline-action" type="button" data-open-editor>navigation editor</button>.</li>
                 <li><strong>Check:</strong> search the changed item and confirm the link opens correctly.</li>
               </ul>
-            </section>
-            <section class="help-section auth-section" id="authSection">
-              <h2>Session prep</h2>
-              <p>Sign in once to the systems that own protected products before opening launchpad links. This does not bypass permissions; it keeps normal ArcGIS and Power BI sessions warm so users are not challenged on every click.</p>
-              <div class="auth-actions">
-                <a href="https://arc-nhq-gis.maps.arcgis.com/home/signin.html" target="_blank" rel="noreferrer">Sign in to ArcGIS</a>
-                <a href="https://app.powerbi.com/" target="_blank" rel="noreferrer">Sign in to Power BI</a>
-              </div>
             </section>
             <section class="contact-card" id="contactCard">
               <div>

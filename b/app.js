@@ -39,7 +39,6 @@ const dom = {
   helpButton: document.querySelector("#helpButton"),
   helpModal: document.querySelector("#helpModal"),
   closeHelp: document.querySelector("#closeHelp"),
-  authSection: document.querySelector("#authSection"),
   contactCard: document.querySelector("#contactCard"),
   toast: document.querySelector("#toast")
 };
@@ -674,7 +673,6 @@ function openHelp(focusTarget = "") {
   dom.helpModal.dataset.focus = focusTarget;
   dom.helpModal.hidden = false;
   requestAnimationFrame(() => {
-    if (focusTarget === "auth") dom.authSection.scrollIntoView({ block: "nearest" });
     if (focusTarget === "contact") dom.contactCard.scrollIntoView({ block: "nearest" });
     dom.closeHelp.focus();
   });
