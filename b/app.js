@@ -133,7 +133,7 @@ function linkAttrs(item) {
   if (isPlaceholder(item)) {
     return `href="#" data-id="${item.id}" data-placeholder="true" aria-disabled="true" title="${item.label} needs a launch URL"`;
   }
-  return `href="${item.url}" target="_blank" rel="noreferrer" data-id="${item.id}" title="${item.label}"`;
+  return `href="${item.url}" rel="noreferrer" data-id="${item.id}" title="${item.label}"`;
 }
 
 function weatherDetailItems() {
@@ -621,7 +621,7 @@ function openBestSearchMatch() {
     return;
   }
   showToast(`Opening ${best.label}`);
-  window.open(best.url, "_blank", "noopener,noreferrer");
+  window.location.assign(best.url);
 }
 
 function openSearch(query = dom.searchInput.value) {
