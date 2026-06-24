@@ -38,6 +38,11 @@
   }
   .utils .label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
 
+  .vtog { display: inline-flex; align-items: center; border: 1px solid #3A3A3E; border-radius: 999px; overflow: hidden; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; }
+  .vtog span, .vtog a { padding: 6px 12px; line-height: 1; text-decoration: none; color: #9F9FA3; display: flex; align-items: center; }
+  .vtog .on { background: #E21224; color: #FFFFFF; }
+  .vtog a:hover { background: #1C1C20; color: #FFFFFF; }
+
   main { padding: 28px 32px 0; }
 
   .search {
@@ -202,6 +207,10 @@ const EMAIL_TO = "FloridaSads@RedCross.org";
   <span class="return-note">Click the Red Cross mark to return to the Table of Contents</span>
   <h1>Florida Regional Operating Summary</h1>
   <div class="utils">
+    <div class="vtog" role="group" aria-label="Menu design" title="Switch menu design">
+      <span class="on">A</span>
+      <a href="/b/">B</a>
+    </div>
     <button title="Menu" aria-label="Menu">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
     </button>

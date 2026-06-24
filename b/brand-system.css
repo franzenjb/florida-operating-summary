@@ -1,0 +1,138 @@
+:root {
+  --font-ui: "IBM Plex Sans", Aptos, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  --color-red-cross: #d8001b;
+  --color-red-dark: #9f0014;
+  --color-red-pressed: #79000f;
+  --color-red-soft: #fff0f2;
+  --color-ink: #20242b;
+  --color-ink-strong: #111318;
+  --color-muted: #69717d;
+  --color-subtle: #8b95a1;
+  --color-line: #dfe3e8;
+  --color-canvas: #f5f6f7;
+  --color-surface: #ffffff;
+  --color-surface-raised: #f9fafb;
+  --color-map-blue: #eaf4fb;
+  --color-info: #1d4ed8;
+  --color-success: #2d7a3e;
+  --color-warning: #b7791f;
+  --color-danger: #9f0014;
+
+  --radius-control: 6px;
+  --radius-panel: 8px;
+  --shadow-panel: 0 10px 30px rgba(31, 41, 55, 0.08);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+}
+
+html,
+body {
+  font-family: var(--font-ui);
+  color: var(--color-ink);
+  background: var(--color-canvas);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: var(--color-canvas);
+}
+
+.app-header {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-5);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.app-logo {
+  height: 36px;
+  width: auto;
+  flex: none;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.btn {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-control);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--color-red-cross);
+  color: #fff;
+  border: 1px solid var(--color-red-cross);
+}
+
+.btn-primary:hover {
+  background: var(--color-red-dark);
+  border-color: var(--color-red-dark);
+}
+
+.btn-secondary {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  border: 1px solid var(--color-line);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid transparent;
+}
+
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-panel);
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.metric-value {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-red-dark);
+}
