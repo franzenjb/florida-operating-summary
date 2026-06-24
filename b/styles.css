@@ -60,7 +60,7 @@ a {
 }
 
 .topbar {
-  min-height: 72px;
+  min-height: 104px;
   display: grid;
   grid-template-columns: auto minmax(300px, 1fr) minmax(390px, 560px) auto;
   gap: 12px;
@@ -80,7 +80,7 @@ a {
 
 .brand-logo {
   width: auto;
-  height: 56px;
+  height: 84px;
   flex: none;
 }
 
