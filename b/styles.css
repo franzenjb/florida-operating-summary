@@ -164,18 +164,16 @@ kbd {
 }
 
 .text-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 38px;
   padding: 0 13px;
   border-radius: 6px;
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
-}
-
-.session-action {
-  border-color: rgba(0, 75, 121, 0.28);
-  background: var(--arc-blue-deep);
-  color: #fff;
+  text-decoration: none;
 }
 
 .hero-strip {

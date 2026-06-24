@@ -36,9 +36,7 @@ const dom = {
   heroStrip: document.querySelector(".hero-strip"),
   adminOnly: document.querySelectorAll("[data-admin-only]"),
   sourceFilter: document.querySelector("#sourceFilter"),
-  sessionButton: document.querySelector("#sessionButton"),
   helpButton: document.querySelector("#helpButton"),
-  contactButton: document.querySelector("#contactButton"),
   helpModal: document.querySelector("#helpModal"),
   closeHelp: document.querySelector("#closeHelp"),
   authSection: document.querySelector("#authSection"),
@@ -704,9 +702,7 @@ dom.paletteInput.addEventListener("keydown", (event) => {
   openBestSearchMatch();
 });
 dom.closeSearch.addEventListener("click", closeSearch);
-dom.sessionButton.addEventListener("click", () => openHelp("auth"));
 dom.helpButton.addEventListener("click", () => openHelp());
-dom.contactButton.addEventListener("click", () => openHelp("contact"));
 dom.closeHelp.addEventListener("click", closeHelp);
 dom.helpModal.addEventListener("click", (event) => {
   if (event.target === dom.helpModal) closeHelp();
