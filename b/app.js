@@ -743,6 +743,12 @@ dom.searchResults.addEventListener("click", (event) => {
   dom.paletteInput.focus();
 });
 dom.helpButton.addEventListener("click", () => openHelp());
+document.querySelector("#contactButton")?.addEventListener("click", () => {
+  // mailto still fires for users with a mail client; copy + toast guarantees
+  // feedback when no handler is set or the app is embedded in an iframe.
+  navigator.clipboard?.writeText("FloridaSads@RedCross.org");
+  showToast("Email copied: FloridaSads@RedCross.org");
+});
 dom.closeHelp.addEventListener("click", closeHelp);
 dom.helpModal.addEventListener("click", (event) => {
   if (event.target === dom.helpModal) closeHelp();
