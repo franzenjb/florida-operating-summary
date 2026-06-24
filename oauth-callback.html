@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ArcGIS sign-in</title>
+  </head>
+  <body>
+    <script>
+      // Relay the implicit-flow token back to the app window that opened this
+      // popup, then close. Registered as https://*.jbf.com/oauth-callback.html
+      // on the "BioMed Map Workbench OAuth" app (client NOYP9RCgBYrcjtRC).
+      (function () {
+        var hash = location.hash ? new URLSearchParams(location.hash.substring(1)) : null;
+        var token = hash && hash.get("access_token");
+        var username = (hash && hash.get("username")) || "";
+        if (token && window.opener) {
+          window.opener.postMessage({ type: "arcgis_oauth_token", token: token, username: username }, "*");
+          window.close();
+        } else {
+          document.body.textContent = "Sign-in complete. You can close this window.";
+        }
+      })();
+    </script>
+  </body>
+</html>

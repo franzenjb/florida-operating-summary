@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operating Picture — Florida ROS</title>
+<link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/dark/main.css">
+<style>
+  :root { color-scheme: dark; --panel-w: 360px; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: #0A0A0A; color: #E6E6E6;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+  }
+
+  /* Header */
+  header {
+    flex: 0 0 auto; display: flex; align-items: center; gap: 18px;
+    padding: 10px 18px; background: #141416; border-bottom: 1px solid #2A2A2D; z-index: 5;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand svg { flex: 0 0 auto; }
+  .titles { display: flex; flex-direction: column; line-height: 1.15; }
+  .titles .kicker { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #9F9FA3; }
+  .titles h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 20px; color: #FFFFFF; font-weight: 700; }
+  .spacer { flex: 1; }
+  .back {
+    display: inline-flex; align-items: center; gap: 7px; text-decoration: none;
+    background: #E21224; color: #FFFFFF; font-weight: 700; font-size: 13px;
+    padding: 9px 15px 9px 12px; border-radius: 999px;
+  }
+  .back:hover { background: #C10F1F; }
+  .back svg { display: block; }
+
+  /* Body: map + side panel */
+  .body { flex: 1; display: flex; min-height: 0; position: relative; }
+  #map { flex: 1; min-width: 0; }
+
+  /* Retractable + resizable side panel */
+  #panel {
+    flex: 0 0 var(--panel-w); width: var(--panel-w);
+    background: #141416; border-left: 1px solid #2A2A2D;
+    display: flex; flex-direction: column; position: relative; min-width: 0;
+  }
+  #panel.collapsed { flex-basis: 0; width: 0; border-left: none; overflow: hidden; }
+  .resizer {
+    position: absolute; left: -3px; top: 0; bottom: 0; width: 6px; cursor: col-resize; z-index: 6;
+  }
+  .resizer:hover { background: rgba(226,18,36,0.35); }
+  .panel-head {
+    flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 14px; border-bottom: 1px solid #26262A;
+  }
+  .panel-head h2 { margin: 0; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFFFF; }
+  .panel-body { flex: 1; overflow: auto; padding: 14px; }
+  .hint { color: #9F9FA3; font-size: 13px; line-height: 1.5; }
+  .layer-name { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #E21224; font-weight: 700; margin: 0 0 10px; }
+  .frow { padding: 8px 0; border-bottom: 1px solid #1F1F22; }
+  .frow:last-child { border-bottom: none; }
+  .fk { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: #9F9FA3; }
+  .fv { font-size: 14px; color: #F3F3F4; margin-top: 2px; word-break: break-word; }
+
+  /* Panel toggle tab (when collapsed, a button to reopen) */
+  #panelTab {
+    position: absolute; top: 12px; right: 12px; z-index: 6; display: none;
+    background: #141416; border: 1px solid #3A3A3E; color: #D7D7D8;
+    border-radius: 999px; padding: 8px 13px; font-size: 12px; font-weight: 700; cursor: pointer;
+  }
+  #panelTab:hover { color: #FFFFFF; border-color: #6A6A6E; }
+  .iconbtn { background: none; border: none; color: #9F9FA3; cursor: pointer; padding: 4px; display: flex; }
+  .iconbtn:hover { color: #FFFFFF; }
+
+  /* Sign-in gate */
+  #gate {
+    position: absolute; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center;
+    background: #0A0A0A; padding: 24px;
+  }
+  #gate .card {
+    max-width: 440px; text-align: center; background: #141416;
+    border: 1px solid #26262A; border-top: 3px solid #E21224; padding: 32px 28px;
+  }
+  #gate h2 { margin: 0 0 8px; font-family: Georgia, serif; font-size: 22px; color: #FFFFFF; }
+  #gate p { margin: 0 0 20px; font-size: 14px; line-height: 1.5; color: #B9B9BC; }
+  #gate button {
+    background: #E21224; color: #FFFFFF; border: none; cursor: pointer;
+    font-weight: 700; font-size: 14px; padding: 12px 22px; border-radius: 999px;
+  }
+  #gate button:hover { background: #C10F1F; }
+  #gate .err { color: #FF9AA2; font-size: 13px; margin-top: 14px; min-height: 16px; }
+  .esri-view .esri-ui-corner .esri-component { box-shadow: 0 1px 4px rgba(0,0,0,.5); }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="/" title="Return to the Florida ROS menu" style="text-decoration:none;">
+    <svg viewBox="0 0 24 24" width="30" height="30" aria-label="American Red Cross">
+      <rect x="9" y="2" width="6" height="20" rx="1" fill="#E21224"></rect>
+      <rect x="2" y="9" width="20" height="6" rx="1" fill="#E21224"></rect>
+    </svg>
+    <span class="titles">
+      <span class="kicker">Florida Regional Operating Summary</span>
+      <h1>Operating Picture</h1>
+    </span>
+  </a>
+  <span class="spacer"></span>
+  <a class="back" href="/">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+    Florida ROS Menu
+  </a>
+</header>
+
+<div class="body">
+  <div id="map"></div>
+  <button id="panelTab">Details ›</button>
+  <aside id="panel">
+    <div class="resizer" id="resizer"></div>
+    <div class="panel-head">
+      <h2>Feature Details</h2>
+      <button class="iconbtn" id="collapseBtn" title="Hide panel" aria-label="Hide panel">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+      </button>
+    </div>
+    <div class="panel-body" id="panelBody">
+      <p class="hint">Click any feature on the map to see its details here. The default ArcGIS popup is disabled — details show in this panel.</p>
+    </div>
+  </aside>
+
+  <div id="gate">
+    <div class="card">
+      <h2>Operating Picture</h2>
+      <p>This map uses the private American Red Cross <strong>Florida Situation Map</strong>. Sign in once with your Red Cross account to load it.</p>
+      <button id="signInBtn">Sign in &amp; load map</button>
+      <div class="err" id="gateErr"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---- Config (proven jbf.com wildcard OAuth app) -------------------------
+  var PORTAL = "https://arc-nhq-gis.maps.arcgis.com";
+  var SHARING = PORTAL + "/sharing/rest";
+  var CLIENT_ID = "NOYP9RCgBYrcjtRC";              // "BioMed Map Workbench OAuth"
+  var WEBMAP_ID = "fe91c670ab2648b8ad460d6f4fb86689"; // Florida Situation Map
+  // Redirect must be a registered *.jbf.com host; fall back to basemap.jbf.com
+  // when opened from .vercel.app/localhost (it relays the token cross-origin).
+  var onJbf = location.hostname.endsWith(".jbf.com");
+  var REDIRECT = onJbf ? (location.origin + "/oauth-callback.html")
+                       : "https://basemap.jbf.com/oauth-callback.html";
+
+  // ---- OAuth implicit-flow popup (ported from red-cross-map-base-template) -
+  function signIn() {
+    return new Promise(function (resolve, reject) {
+      var authUrl = SHARING + "/oauth2/authorize?" + new URLSearchParams({
+        client_id: CLIENT_ID, response_type: "token", redirect_uri: REDIRECT, expiration: "120"
+      });
+      var popup = window.open(authUrl, "agol-auth",
+        "width=620,height=720,scrollbars=yes,resizable=yes");
+      if (!popup) { reject(new Error("Popup blocked — allow popups, then retry.")); return; }
+      var redirectOrigin = new URL(REDIRECT).origin;
+      function cleanup() { clearInterval(poll); window.removeEventListener("message", onMsg); if (!popup.closed) popup.close(); }
+      function onMsg(evt) {
+        if (evt.origin !== redirectOrigin && evt.origin !== location.origin) return;
+        var d = evt.data || {};
+        if (d.type !== "arcgis_oauth_token" || !d.token) return;
+        cleanup(); resolve({ token: d.token, username: d.username || "" });
+      }
+      var poll = setInterval(function () { if (popup.closed) { cleanup(); reject(new Error("Sign-in cancelled.")); } }, 500);
+      window.addEventListener("message", onMsg);
+    });
+  }
+
+  // ---- Boot ---------------------------------------------------------------
+  var signInBtn = document.getElementById("signInBtn");
+  var gateErr = document.getElementById("gateErr");
+  signInBtn.addEventListener("click", function () {
+    gateErr.textContent = "";
+    signInBtn.disabled = true; signInBtn.textContent = "Signing in…";
+    signIn().then(function (s) {
+      document.getElementById("gate").style.display = "none";
+      loadMap(s.token, s.username);
+    }).catch(function (e) {
+      gateErr.textContent = e.message || String(e);
+      signInBtn.disabled = false; signInBtn.textContent = "Sign in & load map";
+    });
+  });
+
+  function loadMap(token, username) {
+    require([
+      "esri/config", "esri/identity/IdentityManager",
+      "esri/WebMap", "esri/views/MapView",
+      "esri/widgets/Home", "esri/widgets/Search", "esri/widgets/ScaleBar",
+      "esri/widgets/BasemapGallery", "esri/widgets/Expand", "esri/widgets/Legend"
+    ], function (esriConfig, esriId, WebMap, MapView, Home, Search, ScaleBar, BasemapGallery, Expand, Legend) {
+      esriConfig.portalUrl = PORTAL;
+      try {
+        esriId.registerToken({ server: SHARING, token: token, userId: username, expires: Date.now() + 7200000 });
+      } catch (e) {}
+
+      var map = new WebMap({ portalItem: { id: WEBMAP_ID } });
+      var view = new MapView({ container: "map", map: map });
+      view.popupEnabled = false; // MANDATORY: no default gray ArcGIS popup
+
+      // Standard controls
+      view.ui.move("zoom", "top-left");
+      view.ui.add(new Home({ view: view }), "top-left");
+      view.ui.add(new Search({ view: view }), "top-right");
+      view.ui.add(new ScaleBar({ view: view, unit: "imperial" }), "bottom-left");
+      view.ui.add(new Expand({ view: view, content: new BasemapGallery({ view: view }), expandTooltip: "Basemap" }), "bottom-right");
+      view.ui.add(new Expand({ view: view, content: new Legend({ view: view }), expandTooltip: "Legend" }), "top-right");
+
+      // Click → formatted side-panel card (no Esri popup)
+      view.on("click", function (event) {
+        view.hitTest(event).then(function (resp) {
+          var hit = (resp.results || []).filter(function (r) { return r.graphic && r.graphic.layer; })[0];
+          if (hit) showFeature(hit.graphic);
+        });
+      });
+    });
+  }
+
+  // ---- Feature card -------------------------------------------------------
+  var SYS = /^(objectid|fid|globalid|shape|shape_|shape__|st_area|st_length)/i;
+  function titleCase(s) {
+    return String(s).replace(/_/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+  }
+  function fmtVal(v) {
+    if (v === null || v === undefined || v === "") return "—";
+    if (typeof v === "number") return v.toLocaleString("en-US");
+    if (typeof v === "string" && /^\d{10,13}$/.test(v)) { var d = new Date(Number(v)); if (!isNaN(d)) return d.toLocaleDateString("en-US"); }
+    return String(v);
+  }
+  function showFeature(graphic) {
+    var layer = graphic.layer || {};
+    var attrs = graphic.attributes || {};
+    var aliases = {};
+    (layer.fields || []).forEach(function (f) { aliases[f.name] = f.alias || f.name; });
+    var rows = "";
+    Object.keys(attrs).forEach(function (k) {
+      if (SYS.test(k)) return;
+      var val = attrs[k];
+      if (val === null || val === undefined || val === "") return;
+      var label = titleCase(aliases[k] || k);
+      rows += '<div class="frow"><div class="fk">' + esc(label) + '</div><div class="fv">' + esc(fmtVal(val)) + '</div></div>';
+    });
+    if (!rows) rows = '<p class="hint">No descriptive fields on this feature.</p>';
+    document.getElementById("panelBody").innerHTML =
+      '<p class="layer-name">' + esc(layer.title || "Feature") + '</p>' + rows;
+    openPanel();
+  }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+
+  // ---- Panel: retractable + resizable ------------------------------------
+  var panel = document.getElementById("panel");
+  var panelTab = document.getElementById("panelTab");
+  var savedW = parseInt(localStorage.getItem("fros_panel_w") || "", 10);
+  if (savedW >= 240 && savedW <= 680) document.documentElement.style.setProperty("--panel-w", savedW + "px");
+  function openPanel() { panel.classList.remove("collapsed"); panelTab.style.display = "none"; }
+  function closePanel() { panel.classList.add("collapsed"); panelTab.style.display = "block"; }
+  document.getElementById("collapseBtn").addEventListener("click", closePanel);
+  panelTab.addEventListener("click", openPanel);
+
+  // Drag to resize
+  var resizer = document.getElementById("resizer"), dragging = false;
+  resizer.addEventListener("mousedown", function (e) { dragging = true; e.preventDefault(); document.body.style.userSelect = "none"; });
+  window.addEventListener("mousemove", function (e) {
+    if (!dragging) return;
+    var w = window.innerWidth - e.clientX;
+    w = Math.max(240, Math.min(680, w));
+    document.documentElement.style.setProperty("--panel-w", w + "px");
+  });
+  window.addEventListener("mouseup", function () {
+    if (!dragging) return; dragging = false; document.body.style.userSelect = "";
+    var cur = getComputedStyle(document.documentElement).getPropertyValue("--panel-w").trim();
+    localStorage.setItem("fros_panel_w", parseInt(cur, 10));
+  });
+</script>
+<script src="https://js.arcgis.com/4.31/"></script>
+</body>
+</html>
