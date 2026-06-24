@@ -21,28 +21,23 @@
           <span class="title-full">Florida Regional Operating Summary</span>
           <span class="title-mobile">Florida Ops</span>
         </h1>
+        <div class="source-filter" id="sourceFilter" aria-label="Launch surface filter">
+          <button type="button" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" data-filter="experience">Experience</button>
+          <button type="button" data-filter="arcgis">ArcGIS</button>
+          <button type="button" data-filter="powerbi">Power BI</button>
+          <button type="button" data-filter="external">External</button>
+        </div>
         <form class="command" id="commandForm" role="search">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.3-4.3m2.3-5.2a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" /></svg>
-          <input id="searchInput" aria-label="Search operating summary" placeholder="Search any tool, dashboard, page, view, or URL" autocomplete="off" />
-          <span class="kbd-hint"><kbd>/</kbd> to search</span>
+          <input id="searchInput" aria-label="Search operating summary" placeholder="Search tools, dashboards, pages…" autocomplete="off" />
+          <span class="kbd-hint"><kbd>/</kbd></span>
         </form>
         <nav class="top-actions" aria-label="Support">
           <button class="text-action" id="helpButton" type="button">Help</button>
           <a class="text-action" id="contactButton" href="mailto:FloridaSads@RedCross.org?subject=Florida%20Regional%20Operating%20Summary" target="_blank" rel="noopener">Contact</a>
         </nav>
       </header>
-
-      <section class="hero-strip" aria-label="Operating summary">
-        <div class="hero-tools">
-          <div class="source-filter" id="sourceFilter" aria-label="Launch surface filter">
-            <button type="button" data-filter="all" aria-pressed="true">All</button>
-            <button type="button" data-filter="experience">Experience</button>
-            <button type="button" data-filter="arcgis">ArcGIS</button>
-            <button type="button" data-filter="powerbi">Power BI</button>
-            <button type="button" data-filter="external">External</button>
-          </div>
-        </div>
-      </section>
 
       <section class="workspace" aria-label="Operating workspace">
         <section class="section-grid" id="sectionGrid" aria-label="Table of contents targets"></section>

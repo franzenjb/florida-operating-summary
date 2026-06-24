@@ -33,7 +33,7 @@ const dom = {
   searchSummary: document.querySelector("#searchSummary"),
   closeSearch: document.querySelector("#closeSearch"),
   commandForm: document.querySelector("#commandForm"),
-  heroStrip: document.querySelector(".hero-strip"),
+  heroStrip: document.querySelector("#sourceFilter"),
   adminOnly: document.querySelectorAll("[data-admin-only]"),
   sourceFilter: document.querySelector("#sourceFilter"),
   helpButton: document.querySelector("#helpButton"),
@@ -52,8 +52,8 @@ let currentReviewCandidates = [];
 let activeFilter = "all";
 let activeView = "home";
 let selectedWeatherId = "";
-const desktopSearchPlaceholder = "Search any tool, dashboard, page, view, or URL";
-const mobileSearchPlaceholder = "Search tools, pages, URLs";
+const desktopSearchPlaceholder = "Search tools, dashboards, pages…";
+const mobileSearchPlaceholder = "Search tools, pages…";
 const searchExamples = [
   "Operating Picture",
   "Situational Awareness",
