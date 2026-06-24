@@ -5,47 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Florida Regional Operating Summary</title>
 <style>
-  html, body { margin: 0; height: 100%; background: #0A0A0A; }
-  #frame { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; background: #0A0A0A; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { display: flex; flex-direction: column; height: 100vh; background: #0A0A0A; font-family: Arial, Helvetica, sans-serif; }
 
-  /* Floating control bar — lives in THIS page, on top of the framed content */
+  /* Slim chrome bar ABOVE the frame — never overlaps the content */
   #bar {
-    position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
-    z-index: 2147483647; display: flex; align-items: center; gap: 8px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  #back, #open {
-    display: inline-flex; align-items: center; gap: 8px;
-    text-decoration: none; white-space: nowrap; box-shadow: 0 2px 12px rgba(0,0,0,.5);
-    transition: background 140ms ease;
+    flex: 0 0 auto; display: flex; align-items: center; gap: 12px;
+    height: 44px; padding: 0 12px; background: #141416; border-bottom: 1px solid #2A2A2D;
   }
   #back {
+    display: inline-flex; align-items: center; gap: 7px; text-decoration: none;
     background: #E21224; color: #FFFFFF; font-weight: 700; font-size: 13px;
-    letter-spacing: .01em; padding: 9px 15px 9px 11px; border-radius: 999px;
+    padding: 7px 14px 7px 10px; border-radius: 999px; white-space: nowrap;
   }
   #back:hover { background: #C10F1F; }
+  #back svg { display: block; }
+  #title {
+    flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    color: #E6E6E6; font-size: 13px; font-weight: 700; letter-spacing: .01em;
+  }
   #open {
-    background: rgba(20,20,22,.92); color: #D7D7D8; font-weight: 600; font-size: 12px;
-    padding: 8px 13px; border-radius: 999px; border: 1px solid #3A3A3E;
+    display: inline-flex; align-items: center; gap: 7px; text-decoration: none; white-space: nowrap;
+    color: #9F9FA3; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 999px; border: 1px solid #3A3A3E;
   }
   #open:hover { color: #FFFFFF; border-color: #6A6A6E; }
-  #back svg, #open svg { display: block; flex: 0 0 auto; }
+  #open svg { display: block; }
 
-  #err {
-    position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
-    padding: 24px; font-family: Arial, Helvetica, sans-serif; color: #E6E6E6;
-  }
+  #frame { flex: 1; width: 100%; border: 0; background: #0A0A0A; min-height: 0; }
+
+  #err { flex: 1; display: none; align-items: center; justify-content: center; padding: 24px; color: #E6E6E6; }
   #err.show { display: flex; }
-  #err .card {
-    max-width: 460px; text-align: center; background: #141416;
-    border: 1px solid #26262A; border-top: 3px solid #E21224; padding: 30px 28px;
-  }
+  #err .card { max-width: 460px; text-align: center; background: #141416; border: 1px solid #26262A; border-top: 3px solid #E21224; padding: 30px 28px; }
   #err h1 { margin: 0 0 10px; font-family: Georgia, serif; font-size: 22px; color: #FFFFFF; }
   #err p { margin: 0 0 20px; font-size: 14px; line-height: 1.5; color: #B9B9BC; }
-  #err a.go {
-    display: inline-block; background: #E21224; color: #FFFFFF; text-decoration: none;
-    font-weight: 700; font-size: 13px; padding: 11px 20px; border-radius: 999px;
-  }
+  #err a.go { display: inline-block; background: #E21224; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 13px; padding: 11px 20px; border-radius: 999px; }
 </style>
 </head>
 <body>
@@ -55,6 +49,7 @@
     <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
     Back to Florida ROS
   </a>
+  <span id="title"></span>
   <a id="open" href="#" target="_blank" rel="noopener noreferrer" title="Open this page in its own tab">
     Open full
     <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"></path><path d="M20 4l-9 9"></path><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg>
@@ -83,8 +78,9 @@
   var open = document.getElementById("open");
   var err = document.getElementById("err");
   var errlink = document.getElementById("errlink");
+  var titleEl = document.getElementById("title");
 
-  if (title) document.title = title + " — Florida ROS";
+  if (title) { document.title = title + " — Florida ROS"; titleEl.textContent = title; }
 
   function allowedHost(h) {
     h = (h || "").toLowerCase();
