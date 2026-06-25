@@ -357,8 +357,9 @@ function sectionGroups(items) {
 }
 
 function renderSections() {
-  const visibleLinks = tocLinks.filter(filterMatches);
-  const groups = sectionGroups(visibleLinks);
+  // Keep every tile in place; dim the ones that don't match the active filter so
+  // their positions stay memorable instead of the grid reflowing.
+  const groups = sectionGroups(tocLinks);
   dom.sectionGrid.innerHTML = Array.from(groups.entries())
     .filter(([, items]) => items.length)
     .map(([section, items]) => {
@@ -373,7 +374,7 @@ function renderSections() {
             ${items
               .map(
                 (item) => `
-                  <a class="target-tile ${isPlaceholder(item) ? "is-placeholder" : ""}" ${linkAttrs(item)}>
+                  <a class="target-tile ${isPlaceholder(item) ? "is-placeholder" : ""} ${activeFilter !== "all" && !filterMatches(item) ? "is-dimmed" : ""}" ${linkAttrs(item)}>
                     <span class="tile-label">${item.label}</span>
                     ${item.note ? `<span class="tile-note">${item.note}</span>` : ""}
                   </a>
@@ -385,8 +386,8 @@ function renderSections() {
       `;
     })
     .join("");
-  if (!visibleLinks.length) {
-    dom.sectionGrid.innerHTML = `<div class="empty-state wide">No ${activeFilter} targets in the Table of Contents grid.</div>`;
+  if (!tocLinks.length) {
+    dom.sectionGrid.innerHTML = `<div class="empty-state wide">No targets in the Table of Contents grid.</div>`;
   }
 }
 

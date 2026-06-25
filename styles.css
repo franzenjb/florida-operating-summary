@@ -435,6 +435,11 @@ kbd {
   max-width: calc(100% - 72px);
 }
 
+.target-tile.is-dimmed {
+  opacity: 0.28;
+  filter: saturate(0.6);
+}
+
 .tile-note {
   position: absolute;
   top: 6px;
