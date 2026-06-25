@@ -82,7 +82,8 @@
       "webmap": "",
       "x": 24,
       "y": 348,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 6,
@@ -97,7 +98,8 @@
       "webmap": "",
       "x": 24,
       "y": 387,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 7,
@@ -127,7 +129,8 @@
       "webmap": "",
       "x": 24,
       "y": 465,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 9,
