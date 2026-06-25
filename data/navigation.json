@@ -222,7 +222,8 @@
       "webmap": "",
       "x": 282,
       "y": 344,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 15,
@@ -237,7 +238,8 @@
       "webmap": "",
       "x": 282,
       "y": 383,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 16,
@@ -252,7 +254,8 @@
       "webmap": "",
       "x": 282,
       "y": 422,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 17,
@@ -267,7 +270,8 @@
       "webmap": "",
       "x": 282,
       "y": 461,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 18,
