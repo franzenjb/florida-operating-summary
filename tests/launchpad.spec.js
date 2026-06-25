@@ -29,12 +29,12 @@ test("launchpad loads, searches, and filters Power BI tiles", async ({ page }) =
   await expect(page.locator(".target-tile.is-dimmed")).toHaveCount(23);
 });
 
-test("embedded launchpad opens targets in a new tab instead of blocked top navigation", async ({ page, baseURL }) => {
+test("embedded launchpad opens targets inside the sandboxed frame", async ({ page, baseURL }) => {
   await page.setContent(`
     <!doctype html>
     <iframe
       id="embed"
-      sandbox="allow-scripts allow-same-origin allow-popups"
+      sandbox="allow-scripts allow-same-origin"
       src="${baseURL}/"
       style="width: 1200px; height: 700px; border: 0"
     ></iframe>
@@ -44,6 +44,11 @@ test("embedded launchpad opens targets in a new tab instead of blocked top navig
   await expect(frame.locator(".target-tile")).toHaveCount(43);
 
   const readiness = frame.locator('a[title="National Readiness"]');
-  await expect(readiness).toHaveAttribute("target", "_blank");
+  await expect(readiness).not.toHaveAttribute("target", /.+/);
   await expect(readiness).toHaveAttribute("href", /\/view\?u=/);
+
+  await readiness.click();
+  await expect
+    .poll(() => page.frames().some((item) => item.url().includes("/view?u=")))
+    .toBe(true);
 });
