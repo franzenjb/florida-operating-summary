@@ -453,7 +453,8 @@
       "webmap": "",
       "x": 760,
       "y": 114,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 32,
