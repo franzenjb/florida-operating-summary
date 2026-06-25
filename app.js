@@ -168,11 +168,44 @@ function scoreLink(link, query) {
   return score;
 }
 
+// When this launchpad runs embedded (it's the Home page of the master ROS
+// Experience Builder), ArcGIS' embed sandbox can block both top-window
+// navigation and popups. It also breaks authenticated ArcGIS apps if we add our
+// own /view iframe wrapper. In embedded mode, bypass /view only for hosts that
+// deadlock or refuse nested iframes; keep the red holder for safer targets.
+let isEmbedded = false;
+try {
+  isEmbedded = window.self !== window.top;
+} catch (e) {
+  isEmbedded = true; // cross-origin access threw → we are framed
+}
+const linkTarget = "";
+
+function shouldBypassHolderInEmbed(item) {
+  if (!isEmbedded) return false;
+  let host = "";
+  try {
+    host = new URL(decodedTarget(item)).hostname.toLowerCase();
+  } catch (e) {
+    return false;
+  }
+  return (
+    host === "arcg.is" ||
+    host.endsWith(".arcgis.com") ||
+    host.includes("powerbi") ||
+    host.includes("orgler")
+  );
+}
+
+function launchUrl(item) {
+  return shouldBypassHolderInEmbed(item) ? decodedTarget(item) || item.url : item.url;
+}
+
 function linkAttrs(item) {
   if (isPlaceholder(item)) {
     return `href="#" data-id="${item.id}" data-placeholder="true" aria-disabled="true" title="${item.label} needs a launch URL"`;
   }
-  return `href="${item.url}" rel="noreferrer" data-id="${item.id}" title="${item.label}"`;
+  return `href="${launchUrl(item)}"${linkTarget} rel="noreferrer" data-id="${item.id}" title="${item.label}"`;
 }
 
 function weatherDetailItems() {
