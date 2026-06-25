@@ -169,16 +169,16 @@ function scoreLink(link, query) {
 }
 
 // When this launchpad runs embedded (it's the Home page of the master ROS
-// Experience Builder), tile links must open at the TOP window — otherwise the
-// destination loads inside the embed's iframe (iframe-in-iframe). Breaking out
-// keeps every launch full-size and avoids nesting the master EB inside itself.
+// Experience Builder), ArcGIS' embed sandbox can block top-window navigation.
+// Open launches in a new tab/window so clicks work from the old Experience
+// Builder shell without nesting the destination iframe inside the embed.
 let isEmbedded = false;
 try {
   isEmbedded = window.self !== window.top;
 } catch (e) {
   isEmbedded = true; // cross-origin access threw → we are framed
 }
-const linkTarget = isEmbedded ? ' target="_top"' : "";
+const linkTarget = isEmbedded ? ' target="_blank"' : "";
 
 function linkAttrs(item) {
   if (isPlaceholder(item)) {
