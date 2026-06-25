@@ -317,7 +317,8 @@
       "webmap": "",
       "x": 534,
       "y": 192,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 21,
