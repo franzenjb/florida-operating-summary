@@ -447,7 +447,7 @@
     {
       "order": 32,
       "section": "Workforce & Training",
-      "label": "Workforce Planning Tool (down)",
+      "label": "Workforce Planning Tool",
       "url": "https://orglerws.redcross.org/PowerBI/Home/Report/25d4d299-c51d-444c-a59c-67340d504f0f/41c65267372a5cea490d?experience=power-bi",
       "kind": "Power BI",
       "host": "orglerws.redcross.org",
@@ -463,7 +463,7 @@
     {
       "order": 33,
       "section": "Workforce & Training",
-      "label": "DWE Tool (down)",
+      "label": "DWE Tool",
       "url": "https://orglerws.redcross.org/PowerBI/Home/Report/25d4d299-c51d-444c-a59c-67340d504f0f/41c65267372a5cea490d?experience=power-bi",
       "kind": "Power BI",
       "host": "orglerws.redcross.org",
@@ -569,7 +569,7 @@
     {
       "order": 40,
       "section": "Partnerships",
-      "label": "Relationship Manager (down)",
+      "label": "Relationship Manager",
       "url": "https://orglerws.redcross.org/PowerBI/Home/Report/25d4d299-c51d-444c-a59c-67340d504f0f/41c65267372a5cea490d?experience=power-bi",
       "kind": "Power BI",
       "host": "orglerws.redcross.org",
