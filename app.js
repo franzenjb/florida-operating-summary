@@ -169,16 +169,16 @@ function scoreLink(link, query) {
 }
 
 // When this launchpad runs embedded (it's the Home page of the master ROS
-// Experience Builder), ArcGIS' embed sandbox can block both top-window
-// navigation and popups. Keep launches in the same embedded frame so clicks
-// still work while the old Experience Builder URL stays unchanged.
+// Experience Builder), ArcGIS' embed sandbox can block top-window navigation.
+// Open launches in a new tab/window so clicks work from the old Experience
+// Builder shell without nesting the destination iframe inside the embed.
 let isEmbedded = false;
 try {
   isEmbedded = window.self !== window.top;
 } catch (e) {
   isEmbedded = true; // cross-origin access threw → we are framed
 }
-const linkTarget = "";
+const linkTarget = isEmbedded ? ' target="_blank"' : "";
 
 function linkAttrs(item) {
   if (isPlaceholder(item)) {
