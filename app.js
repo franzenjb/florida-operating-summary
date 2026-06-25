@@ -233,6 +233,7 @@ function rowForExport(row, index) {
   };
   if (row.needsUrl) output.needsUrl = true;
   if (row.notes) output.notes = row.notes;
+  if (row.note) output.note = row.note;
   if (row.powerbi) output.powerbi = true;
   return output;
 }
