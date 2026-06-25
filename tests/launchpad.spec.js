@@ -29,7 +29,7 @@ test("launchpad loads, searches, and filters Power BI tiles", async ({ page }) =
   await expect(page.locator(".target-tile.is-dimmed")).toHaveCount(23);
 });
 
-test("embedded launchpad opens targets inside the sandboxed frame", async ({ page, baseURL }) => {
+test("embedded launchpad opens decoded targets inside the sandboxed frame", async ({ page, baseURL }) => {
   await page.setContent(`
     <!doctype html>
     <iframe
@@ -45,10 +45,10 @@ test("embedded launchpad opens targets inside the sandboxed frame", async ({ pag
 
   const readiness = frame.locator('a[title="National Readiness"]');
   await expect(readiness).not.toHaveAttribute("target", /.+/);
-  await expect(readiness).toHaveAttribute("href", /\/view\?u=/);
+  await expect(readiness).toHaveAttribute("href", /arc-nhq-gis\.maps\.arcgis\.com\/apps\/dashboards/);
 
   await readiness.click();
   await expect
-    .poll(() => page.frames().some((item) => item.url().includes("/view?u=")))
+    .poll(() => page.frames().some((item) => item.url().includes("arc-nhq-gis.maps.arcgis.com/apps/dashboards")))
     .toBe(true);
 });
