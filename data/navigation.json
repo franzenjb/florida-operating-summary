@@ -160,7 +160,8 @@
       "webmap": "",
       "x": 282,
       "y": 110,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 11,
@@ -175,7 +176,8 @@
       "webmap": "",
       "x": 282,
       "y": 149,
-      "sourceArea": "table of contents"
+      "sourceArea": "table of contents",
+      "powerbi": true
     },
     {
       "order": 12,
