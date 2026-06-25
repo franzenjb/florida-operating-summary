@@ -123,8 +123,10 @@
     h = (h || "").toLowerCase();
     // Hosts that send X-Frame-Options/deny — never frame (would be blank). They
     // fall through to the preview launch card instead.
-    var blocked = ["app.powerbi.com", "apps.usgs.gov"];
+    var blocked = ["app.powerbi.com", "orglerws.redcross.org", "apps.usgs.gov"];
     if (blocked.indexOf(h) !== -1) return false;
+    // Any Power BI host sends X-Frame-Options/deny — never frame (would be blank).
+    if (h.indexOf("powerbi") !== -1 || h.indexOf("orgler") !== -1) return false;
     var ok = ["arcgis.com","arcg.is","jbf.com","noaa.gov","weather.gov",
               "usgs.gov","nwcg.gov","unl.edu","baynews9.com","redcross.org"];
     for (var i = 0; i < ok.length; i++) {

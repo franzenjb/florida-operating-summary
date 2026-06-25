@@ -86,6 +86,40 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
+// Power BI products on the Red Cross side are served from orglerws.redcross.org
+// (the RC Power BI gateway) or app.powerbi.com. Detect that signature from the URL
+// so a tile is classified Power BI regardless of the hand-typed `kind` field. The
+// `kind` field is still honored as a fallback (e.g. ERV, whose stored URL is an
+// ArcGIS dashboard but which is operationally a Power BI product).
+function decodedTarget(link) {
+  const u = link?.url || "";
+  if (u.startsWith("/view?u=")) {
+    try {
+      return decodeURIComponent(new URLSearchParams(u.slice(6)).get("u") || "");
+    } catch (e) {
+      return u;
+    }
+  }
+  return u;
+}
+
+function isPowerBi(link) {
+  // Explicit flag: ArcGIS dashboards that EMBED a Power BI report (e.g. ERV) look
+  // like any other dashboard by URL, so they must be marked in the data.
+  if (link?.powerbi === true) return true;
+  const hay = `${decodedTarget(link)} ${link?.host || ""}`.toLowerCase();
+  return (
+    hay.includes("orgler") ||
+    hay.includes("powerbi") ||
+    hay.includes("power-bi") ||
+    normalize(link?.kind).includes("power bi")
+  );
+}
+
+function effectiveKind(link) {
+  return isPowerBi(link) ? "Power BI" : link?.kind || "";
+}
+
 function kindLabel(kind) {
   return kind.replace("Experience Builder page/view", "Experience view").replace("Power BI / Red Cross workspace", "Power BI");
 }
@@ -106,7 +140,7 @@ function isPlaceholder(item) {
 function filterMatches(link) {
   if (!link) return false;
   if (activeFilter === "all") return true;
-  const kind = normalize(link.kind);
+  const kind = normalize(effectiveKind(link));
   if (activeFilter === "experience") return kind.includes("experience");
   if (activeFilter === "arcgis") return kind.includes("arcgis") || kind.includes("story");
   if (activeFilter === "powerbi") return kind.includes("power bi");
@@ -199,6 +233,7 @@ function rowForExport(row, index) {
   };
   if (row.needsUrl) output.needsUrl = true;
   if (row.notes) output.notes = row.notes;
+  if (row.powerbi) output.powerbi = true;
   return output;
 }
 
@@ -387,7 +422,7 @@ function renderWeatherDetail() {
         <div class="weather-viewer-head">
           <div>
             <strong>${selected.label}</strong>
-            <span>${launchLabel(selected.kind)} · ${selected.host}</span>
+            <span>${launchLabel(effectiveKind(selected))} · ${selected.host}</span>
           </div>
           <a ${linkAttrs(selected)}>Open in new tab</a>
         </div>
@@ -407,7 +442,7 @@ function renderWeatherDetail() {
             (item) => `
               <a class="detail-row" ${linkAttrs(item)}>
                 <strong>${item.label}</strong>
-                <span>${launchLabel(item.kind)}</span>
+                <span>${launchLabel(effectiveKind(item))}</span>
                 <small>${item.host}</small>
               </a>
             `
@@ -596,7 +631,7 @@ function resultMarkup(results) {
         <a class="result-row" ${linkAttrs(item)}>
           <span class="result-section">${item.section}</span>
           <strong>${item.label}</strong>
-          <small>${isPlaceholder(item) ? "Needs URL" : kindLabel(item.kind)}</small>
+          <small>${isPlaceholder(item) ? "Needs URL" : kindLabel(effectiveKind(item))}</small>
         </a>
       `
     )
