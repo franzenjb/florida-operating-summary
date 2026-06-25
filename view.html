@@ -116,6 +116,12 @@
   var err = document.getElementById("err");
   var errlink = document.getElementById("errlink");
   var titleEl = document.getElementById("title");
+  var isEmbedded = false;
+  try {
+    isEmbedded = window.self !== window.top;
+  } catch (e) {
+    isEmbedded = true;
+  }
 
   if (title) { document.title = title + " — Florida ROS"; titleEl.textContent = title; }
 
@@ -135,6 +141,28 @@
     return false;
   }
 
+  function authNestedHost(h) {
+    h = (h || "").toLowerCase();
+    return (
+      h === "arcg.is" ||
+      h.endsWith(".arcgis.com") ||
+      h.indexOf("powerbi") !== -1 ||
+      h.indexOf("orgler") !== -1
+    );
+  }
+
+  function setLeadText(el, text) {
+    if (!el) return;
+    for (var i = 0; i < el.childNodes.length; i++) {
+      var node = el.childNodes[i];
+      if (node.nodeType === 3 && node.nodeValue.trim()) {
+        node.nodeValue = text + " ";
+        return;
+      }
+    }
+    el.insertBefore(document.createTextNode(text + " "), el.firstChild);
+  }
+
   var dest = null;
   try { dest = new URL(raw); } catch (e) { dest = null; }
 
@@ -144,6 +172,14 @@
     document.getElementById("previewLink").href = safe;
     open.href = safe;
     if (title) document.getElementById("errTitle").textContent = title;
+    if (isEmbedded) {
+      document.getElementById("errNote").textContent = "This product cannot run inside the nested Experience Builder holder. Use the button below to open it in this same space, or use Back to Florida ROS to return.";
+      document.getElementById("errlink").removeAttribute("target");
+      document.getElementById("previewLink").removeAttribute("target");
+      open.removeAttribute("target");
+      setLeadText(document.getElementById("errlink"), "Open in this space");
+      setLeadText(open, "Open here");
+    }
 
     // Pre-generated static thumbnails (captured ahead of time, committed in repo —
     // no runtime screenshot service). Keyed by destination host. To add one:
@@ -167,7 +203,12 @@
     frame.style.display = "none";
   }
 
-  if (!dest || (dest.protocol !== "https:" && dest.protocol !== "http:") || !allowedHost(dest.hostname)) {
+  if (
+    !dest ||
+    (dest.protocol !== "https:" && dest.protocol !== "http:") ||
+    !allowedHost(dest.hostname) ||
+    (isEmbedded && authNestedHost(dest.hostname))
+  ) {
     showCard(dest && (dest.protocol === "https:" || dest.protocol === "http:") ? dest.href : "");
     return;
   }
