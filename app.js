@@ -168,23 +168,11 @@ function scoreLink(link, query) {
   return score;
 }
 
-// When this launchpad runs embedded (it's the Home page of the master ROS
-// Experience Builder), tile links must open at the TOP window — otherwise the
-// destination loads inside the embed's iframe (iframe-in-iframe). Breaking out
-// keeps every launch full-size and avoids nesting the master EB inside itself.
-let isEmbedded = false;
-try {
-  isEmbedded = window.self !== window.top;
-} catch (e) {
-  isEmbedded = true; // cross-origin access threw → we are framed
-}
-const linkTarget = isEmbedded ? ' target="_top"' : "";
-
 function linkAttrs(item) {
   if (isPlaceholder(item)) {
     return `href="#" data-id="${item.id}" data-placeholder="true" aria-disabled="true" title="${item.label} needs a launch URL"`;
   }
-  return `href="${item.url}"${linkTarget} rel="noreferrer" data-id="${item.id}" title="${item.label}"`;
+  return `href="${item.url}" target="_blank" rel="noopener noreferrer" data-id="${item.id}" title="${item.label}"`;
 }
 
 function weatherDetailItems() {
@@ -700,7 +688,7 @@ function openBestSearchMatch() {
     return;
   }
   showToast(`Opening ${best.label}`);
-  window.location.assign(best.url);
+  window.open(best.url, "_blank", "noopener,noreferrer");
 }
 
 function openSearch(query = dom.searchInput.value) {
